@@ -1,13 +1,16 @@
 # Cleaning wind turbine data
 
-This repository includes the scripts developed for cleaning wind turbine data.
-
-An example where the functions are applied is also included.
+This repository includes the scripts developed for cleaning wind turbine data, when wind speed and power values for each turbine in the wind farm are available.
 
 ## Use this code
 
 ### Function
 The function that performs turbine data cleaning is **`clean_turbine`**.
+
+An example where the functions are applied is included in `example.py`.
+The function `powerCurve.py` is also included, which draws the "wind farm" power curve using the average turbine values, namely wind speed and power.
+
+
 
 ### Assumptions
 Data Quality:
