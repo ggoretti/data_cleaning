@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 def clean_turbine(data_raw, wtn, ws_cut_in, ws_rated, ws_cut_out, anomalous=False):
     '''
     Cleans wind turbine data.
