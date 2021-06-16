@@ -53,10 +53,10 @@ plt.show()
 # =============================================================================
 
 # Clean data excluding anomalous (i.e. flagged) data
-data_norm = clean_data(data_raw, wtn, 2.0, 11.5, 22.0)
+data_norm = clean_data(data_raw, wtn, 2.0, 11.5, 22.0, k_up=2.5)
 
 # Clean data including anomalous (i.e. flagged) data
-data_flag = clean_data(data_raw, wtn, 2.0, 11.5, 22.0, anomalous=True)
+data_flag = clean_data(data_raw, wtn, 2.0, 11.5, 22.0, k_up=2.5, anomalous=True)
 
 
 
