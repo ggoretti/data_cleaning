@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 """
+This script presents an example of use of the 'clean_turbine' function.
+
+The function 'powerCurve' is used to draw the power curves with the wind farm (average) values.
+
 @author: Gianni Goretti
 """
 
