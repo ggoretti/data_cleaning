@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-def clean_turbine(data_raw, wtn, ws_cut_in, ws_rated, ws_cut_out, anomalous=False):
+def clean_turbine(data_raw, wtn, ws_cut_in, ws_rated, ws_cut_out, 
+                  k_up=1.5, k_low=1.5, anomalous=False):
     '''
     Cleans wind turbine data.
     
@@ -16,6 +17,10 @@ def clean_turbine(data_raw, wtn, ws_cut_in, ws_rated, ws_cut_out, anomalous=Fals
         Rated wind speed in m/s.
     ws_cut_out : float
         Cut-out wind speed in m/s.
+    k_up : float, default=1.5
+        Multiplier of IQR to define upper threshold for outlier detection.
+    k_low : float, default=1.5
+        Multiplier of IQR to define lower threshold for outlier detection.
     anomalous : bool, default False
         If True, anomalous (flagged) periods are kept in the data set.
     
@@ -138,12 +143,12 @@ def clean_turbine(data_raw, wtn, ws_cut_in, ws_rated, ws_cut_out, anomalous=Fals
             # 5.2 Calculate outlier threshold (Q3 + 2.5*IQR) for each group
             q25, q75 = np.percentile(df[pw_tmp].dropna(), [25,75])
             iqr = q75 - q25
-            thresh_high = q75 + 2.5*iqr
+            thresh_up = q75 + k_up*iqr
         
             # 5.3 Remove instances where power is above the threshold
             data[pw] = data[pw].mask(
                 (data[ws] > key.left) & (data[ws] <= key.right) &
-                (data[pw] > thresh_high)
+                (data[pw] > thresh_up)
                 )
 
 
@@ -159,7 +164,7 @@ def clean_turbine(data_raw, wtn, ws_cut_in, ws_rated, ws_cut_out, anomalous=Fals
             # 6.2 Calculate outlier threshold (Q1 - 2.5*IQR) for each group
             q25, q75 = np.percentile(df[pw_tmp].dropna(), [25,75])
             iqr = q75 - q25
-            thresh_low = q25 - 1.5*iqr
+            thresh_low = q25 - k_low*iqr
     
             # 6.3 Flag instances where power output is below the threshold
             data[fl] = data[fl].mask(
