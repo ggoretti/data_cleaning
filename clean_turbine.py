@@ -105,7 +105,7 @@ def clean_turbine(data_raw, wtn, ws_cut_in, ws_rated, ws_cut_out,
     # 2. Remove instances of non-zero power for wind speed > ws_cut_out + 2
     for ws,pw in zip(windSpeed_cols, power_cols):
         data[pw] = data[pw].mask(
-            (data[ws] >= ws_cut_in+2) &
+            (data[ws] >= ws_cut_out+2) &
             (data[pw] > 0)
             )
 
